@@ -15,7 +15,7 @@ from fuzzywuzzy import fuzz, process
 #https://www.analyticsvidhya.com/blog/2021/07/fuzzy-string-matching-a-hands-on-guide/
 #https://www.geeksforgeeks.org/fuzzywuzzy-python-library/
 
-match = pd.read_csv("output/data_match.csv", index_col = "index", low_memory = False)
+match = pd.read_csv("temp/data_match.csv", index_col = "index", low_memory = False)
 fifa = pd.read_csv("CompleteDataset.csv", index_col = 0, low_memory = False)
 
 print(match.shape)
@@ -29,7 +29,7 @@ print(match.shape)
 match["merge_name_string"] = match["merge_name"].apply(pd.Series)
 print(match.shape)
 
-match.to_csv("output/data_merged_try.csv", index_label="index")
+#match.to_csv("output/data_merged_try.csv", index_label="index")
 
 data = match.merge(fifa, how = "left", left_on = "merge_name_string", right_on = "Name")
 
@@ -37,7 +37,7 @@ data = match.merge(fifa, how = "left", left_on = "merge_name_string", right_on =
 
 #match["merge_name"] = match["short_name"].apply(lambda x: process.extract(x, fifa["Name"], limit=1)) 
 
-data.to_csv("output/data_merged.csv", index_label="index")
+data.to_csv("temp/data_merged.csv", index_label="index")
 
 #40482 (0.7) vs 35432 (0.8)
 print(data.shape)

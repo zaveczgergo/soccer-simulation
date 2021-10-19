@@ -1,9 +1,13 @@
-objects = input temp temp/cfo-data-analysis.db temp/*part.csv temp/events.gz temp/events*.json temp/events.csv temp/matches.gz temp/matches*.json temp/match_team.csv output/data_match.csv output/data_merged.csv
+objects = input temp temp/cfo-data-analysis.db temp/*part.csv temp/events.gz temp/events*.json temp/events.csv temp/matches.gz temp/matches*.json temp/match_team.csv temp/data_match.csv temp/data_merged.csv temp/data_small.csv output/analysis_sample.csv
 all: $(objects)
 
-output/data_merged.csv: fifa_merge.py output/data_match.csv CompleteDataset.csv
+output/analysis_sample.csv: clean_data.py temp/data_small.csv
 	python3 $<
-output/data_match.csv: merge_data.py temp/match-part.csv temp/match_team.csv temp/player_rank-part.csv temp/player-part.csv temp/events.csv
+temp/data_small.csv: create_columns.py temp/data_merged.csv
+	python3 $<
+temp/data_merged.csv: fifa_merge.py temp/data_match.csv CompleteDataset.csv
+	python3 $<
+temp/data_match.csv: merge_data.py temp/match-part.csv temp/match_team.csv temp/player_rank-part.csv temp/player-part.csv temp/events.csv
 	python3 $<
 temp/match_team.csv: open_matches.py temp/matches*.json
 	python3 $<

@@ -25,4 +25,4 @@ for df in [match, match_teams, player_rank, player, events, data]:
 
 data.drop(["wy_id_x","wy_id_y","current_national_team_id","current_team_id","middle_name"], axis=1)
     
-data.to_csv("output/data_match.csv", index_label="index")
+data.to_csv("temp/data_match.csv", index_label="index")
