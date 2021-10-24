@@ -17,7 +17,8 @@ from sklearn import metrics
 
 data = pd.read_csv("output/analysis_sample.csv", index_col = 0, low_memory = False)
 
-data_analysis = pd.concat([data.loc[:,"Acceleration_y":"Volleys"],data["shot"]], axis = 1)
+data_analysis = pd.concat([data.loc[:,"Acceleration_y":"Volleys"],data.loc[:,"Acceleration_y_own":"Volleys_other"],data["assist"]], axis = 1)
+data_analysis = pd.concat([data.loc[:,"Acceleration_y":"Volleys"],data["assist"]], axis = 1)
 data_analysis["missing"] = data_analysis.isna().sum(axis = 1)
 #print(data_analysis["missing"].value_counts())
 #print(data_analysis.loc[data_analysis["missing"] > 0, :].shape[0])
@@ -26,8 +27,9 @@ data_nonmissing = data_analysis.dropna()
 #print(data_analysis.shape)
 #print(data_nonmissing.shape)
 
-independent = data_nonmissing.loc[:,"Acceleration_y":"Volleys"]
-dependent = data_nonmissing["shot"]
+independent = data_nonmissing.loc[:,"Acceleration_y":"Volleys_other"]
+#independent = data_nonmissing.loc[:,"Acceleration_y":"Volleys_other"]
+dependent = data_nonmissing["assist"]
 
 X_train, X_test, y_train, y_test = train_test_split(independent, 
                                                     dependent, 

@@ -50,7 +50,18 @@ print(pos.columns)
 data = pd.concat([data, pos], axis = 1)
 print(data.groupby("pos")["clearance"].mean())
 
-data = data.loc[:,["competition_id","dateutc","label","winner","teamsData_teams_home","teamsData_teams_away","match_id","current_team_id",
+#data["home_dummy"] = np.where(data["player_id"].isin(data["players_home"]), 1, 0)
+data["home_dummy"] = data.apply(lambda x: str(x["player_id"]) in str(x["players_home"]), axis=1)
+data["away_dummy"] = data.apply(lambda x: str(x["player_id"]) in str(x["players_away"]), axis=1)
+
+for dummy in [data["home_dummy"], data["away_dummy"]]:
+    print(dummy.value_counts())
+
+data.loc[data["home_dummy"] == True, "home"] = 1
+data.loc[data["away_dummy"] == True, "home"] = 0
+print(data["home"].value_counts())
+
+data = data.loc[:,["competition_id","dateutc","label","winner","teamsData_teams_home","teamsData_teams_away","match_id","current_team_id","home",
                    "player_id","pos","short_name","Name","birth_date","Age","Nationality","Overall","Potential","Club","Value","Wage",
                    "Acceleration_y","Aggression","Agility","Balance","Ball control","Composure","Crossing","Curve","Dribbling","Finishing","Free kick accuracy","Heading accuracy","Interceptions","Jumping","Long passing","Long shots","Marking","Penalties","Positioning","Reactions","Short passing","Shot power","Sliding tackle","Sprint speed","Stamina","Standing tackle","Strength","Vision","Volleys",
                    "GK diving","GK handling","GK kicking","GK positioning","GK reflexes",
