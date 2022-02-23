@@ -58,9 +58,28 @@ for o in objects:
     data.loc[data["home"] == 0, o + "_own"] = data[o + "_away"]
     data.loc[data["home"] == 0, o +"_other"] = data[o + "_home"]
 
-#shape_old = data.shape[0]
-#data.dropna(inplace = True)
-#shape_new = data.shape[0]
-#print("Loss due to average team ratings is {}".format(shape_old - shape_new))
-#print(data.shape)
+print(data.shape)
+data.drop_duplicates(subset = ["match_id","player_id"], inplace = True)
+print(data.shape)
+
+data_analysis = pd.concat([data.loc[:,["match_id","player_id"]],data.loc[:,"Acceleration_y":"Volleys"],data.loc[:,"Acceleration_y_own":"Volleys_other"]], axis = 1)
+#data_analysis = pd.concat([data.loc[:,"Acceleration_y":"Volleys"],data["assist"]], axis = 1)
+data_analysis["missing"] = data_analysis.isna().sum(axis = 1)
+#print(data_analysis["missing"].value_counts())
+print(data_analysis.loc[data_analysis["missing"] > 0, :].shape[0])
+
+shape_old = data_analysis.shape[0]
+data_nonmissing = data_analysis.dropna()
+#data_analysis.dropna(inplace = True)
+shape_new = data_nonmissing.shape[0]
+print(data.shape)
+print(data_analysis.shape)
+print(data_nonmissing.shape)
+
+data_nonmissing.loc[:,"filter"] = 1
+print("Loss due to average team ratings is {}".format(shape_old - shape_new))
+#if do not want to delete based on averages use the latter
+#data = data.merge(data_nonmissing[["match_id","player_id","filter"]], how = "left", on = ["match_id", "player_id"])
+data = data.merge(data_nonmissing[["match_id","player_id","filter"]], how = "right", on = ["match_id", "player_id"])
+print(data.shape)
 data.to_csv("output/analysis_sample.csv")
