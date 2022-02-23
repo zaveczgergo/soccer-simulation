@@ -17,19 +17,10 @@ from sklearn import metrics
 
 data = pd.read_csv("output/analysis_sample.csv", index_col = 0, low_memory = False)
 
-data_analysis = pd.concat([data.loc[:,"Acceleration_y":"Volleys"],data.loc[:,"Acceleration_y_own":"Volleys_other"],data["assist"]], axis = 1)
-data_analysis = pd.concat([data.loc[:,"Acceleration_y":"Volleys"],data["assist"]], axis = 1)
-data_analysis["missing"] = data_analysis.isna().sum(axis = 1)
-#print(data_analysis["missing"].value_counts())
-#print(data_analysis.loc[data_analysis["missing"] > 0, :].shape[0])
-
-data_nonmissing = data_analysis.dropna()
-#print(data_analysis.shape)
-#print(data_nonmissing.shape)
-
-independent = data_nonmissing.loc[:,"Acceleration_y":"Volleys_other"]
+data = pd.concat([data.loc[:,"Acceleration_y":"Volleys"], data.loc[:,"Acceleration_y_own":"Volleys_other"], data.loc[:,"assist"]], axis = 1)
+independent = data.loc[:,"Acceleration_y":"Volleys_other"]
 #independent = data_nonmissing.loc[:,"Acceleration_y":"Volleys_other"]
-dependent = data_nonmissing["assist"]
+dependent = data["assist"]
 
 X_train, X_test, y_train, y_test = train_test_split(independent, 
                                                     dependent, 
@@ -42,13 +33,17 @@ print("Testing set has {} cases.".format(X_test.shape[0]))
 clf_A = LinearRegression()
 reg = clf_A.fit(X_train, y_train)
 y_pred = clf_A.predict(X_test)
-#y_train = clf_A.predict(X_train)
+y_pred_train = clf_A.predict(X_train)
 print(clf_A.coef_)
 #print(reg.get_params())
 
-print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
-print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
-print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+print('Mean Absolute Error_test:', metrics.mean_absolute_error(y_test, y_pred))
+print('Mean Squared Error_test:', metrics.mean_squared_error(y_test, y_pred))
+print('Root Mean Squared Error_test:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+
+print('Mean Absolute Error_train:', metrics.mean_absolute_error(y_train, y_pred_train))
+print('Mean Squared Error_train:', metrics.mean_squared_error(y_train, y_pred_train))
+print('Root Mean Squared Error_train:', np.sqrt(metrics.mean_squared_error(y_train, y_pred_train)))
 
 clf_B = Ridge(alpha=0.5)
 reg_r = clf_B.fit(X_train, y_train)
