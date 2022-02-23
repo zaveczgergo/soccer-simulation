@@ -16,7 +16,7 @@ from fuzzywuzzy import fuzz, process
 #https://www.geeksforgeeks.org/fuzzywuzzy-python-library/
 
 match = pd.read_csv("temp/data_match.csv", index_col = "index", low_memory = False)
-fifa = pd.read_csv("CompleteDataset.csv", index_col = 0, low_memory = False)
+fifa = pd.read_csv("input/CompleteDataset.csv", index_col = 0, low_memory = False)
 
 print(match.shape)
 print(fifa.shape)

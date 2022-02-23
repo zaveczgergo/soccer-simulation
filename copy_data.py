@@ -3,6 +3,6 @@
 
 import shutil
 
-shutil.copyfile(r"/home/zavecz/final/soccer/analysis/cfo-data.db", r"/home/zavecz/final/soccer/analysis/temp/cfo-data-analysis.db")
+shutil.copyfile(r"input/cfo-data.db", r"temp/cfo-data-analysis.db")
 
 
