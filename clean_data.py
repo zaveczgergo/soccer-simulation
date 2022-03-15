@@ -43,14 +43,16 @@ print(objects)
 for o in objects:
     data_o = data.groupby(["match_id","home"])[o].mean().reset_index()
     data_o = data_o.pivot(index = "match_id", columns = "home", values = o).reset_index()
-    colname_home = o + "_home"
-    colname_away = o + "_away"
+    colname_home = o + "_away"
+    colname_away = o + "_home"
     #colname_away = "{o}_away".format(o)
     data_o.columns = ["match_id", colname_home, colname_away]
 
     #    print(type(data_agression))
     #    print(data_agression)
     data = data.merge(data_o, how = "left", on = "match_id")
+
+data.to_csv("try.csv")
 
 for o in objects:
     data.loc[data["home"] == 1, o + "_own"] = data[o + "_home"]
