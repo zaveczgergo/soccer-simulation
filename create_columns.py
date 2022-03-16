@@ -30,6 +30,8 @@ data["pass_long"] = data["Launch"]
 data["pass_short"] = data["pass"] - data["pass_long"]
 data["pass_through"] = data["High passThrough"] + data["Smart passThrough"]
 data["pass_cross"] = data["Cross"] + data["Free kick cross"]
+data["tackle_good"] = data["Ground defending duelAccurate"]
+data["tackle_bad"] = data["Ground defending duelNot accurate"]
 int_cols = [c for c in data.columns if 'Interception' in c]
 print(int_cols)
 data["interception"] = data["Others on the ballInterception"] + data["PassInterception"] + data["Shot_xInterception"] + data["DuelInterception"]
@@ -37,6 +39,9 @@ data["interception"] = data["Others on the ballInterception"] + data["PassInterc
 data["foul"] = data["Foul_y"]
 #print(data["foul"].mean())
 #print(data["foul2"].mean())
+data["dribble"] = data["Ground attacking duelAccurate"]
+print(data["dribble"].sum())
+data["control_bad"] = data["Ground attacking duelNot accurate"]
 data["corner"] = data["Corner"]
 data["clearance"] = data["Clearance"]
 #print(pd.crosstab(index = data["role_cluster"], columns = data["clearance"]))
@@ -65,7 +70,7 @@ data = data.loc[:,["competition_id","dateutc","label","winner","teamsData_teams_
                    "player_id","pos","short_name","Name","birth_date","Age","Nationality","Overall","Potential","Club","Value","Wage",
                    "Acceleration_y","Aggression","Agility","Balance","Ball control","Composure","Crossing","Curve","Dribbling","Finishing","Free kick accuracy","Heading accuracy","Interceptions","Jumping","Long passing","Long shots","Marking","Penalties","Positioning","Reactions","Short passing","Shot power","Sliding tackle","Sprint speed","Stamina","Standing tackle","Strength","Vision","Volleys",
                    "GK diving","GK handling","GK kicking","GK positioning","GK reflexes",
-                   "playerank_score","goal_scored","minutes_played","assist","shot","shot_target","pass","pass_good","pass_key","pass_long","pass_short","pass_through","pass_cross","interception","foul","corner","clearance"]]
+                   "playerank_score","goal_scored","minutes_played","assist","shot","shot_target","pass","pass_good","pass_key","pass_long","pass_short","pass_through","pass_cross","tackle_good","tackle_bad","interception","foul","dribble","control_bad","corner","clearance"]]
 
 #for var in ["pass_good", "pass_key"]:
 #    ax = sns.distplot(data[var], kde = False)
