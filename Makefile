@@ -1,6 +1,10 @@
-objects = temp/cfo-data-analysis.db temp/*part.csv temp/events.gz temp/events*.json temp/events.csv temp/matches.gz temp/matches*.json temp/match_team.csv temp/data_match.csv temp/data_merged.csv temp/data_small.csv output/analysis_sample.csv
+objects = temp/cfo-data-analysis.db temp/*part.csv temp/events.gz temp/events*.json temp/events.csv temp/matches.gz temp/matches*.json temp/match_team.csv temp/data_match.csv temp/data_merged.csv temp/data_small.csv output/analysis_sample.csv output/rmse.csv output/regression.csv
 all: $(objects)
 
+output/regression.csv: analysis_data.py output/analysis_sample.csv
+	python3 $<
+output/rmse.csv: analysis_data.py output/analysis_sample.csv
+	python3 $<
 output/analysis_sample.csv: clean_data.py temp/data_small.csv
 	python3 $<
 temp/data_small.csv: create_columns.py temp/data_merged.csv
