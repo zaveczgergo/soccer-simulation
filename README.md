@@ -14,4 +14,4 @@ Typing `make` in the shell should run all codes and create the `temp` (not uploa
 2. `rmse.csv`: root mean squared errors to select among models.
 3. `regression.csv`: the statistics modeled (*dependent*), the variable on the right side of the equation (*variable*), 
 the point estimate of the coefficient (*coefficient*), the standard error of the coefficent (*se*), the p-value of the coefficient (*pval*), 
-the lower and upper bounds of the coefficient estimates (*lower_bound*, *upper_bound*) and a dummy which is 1 when the *variable* is either **Intercept** or a soccer **position**.
+the lower and upper bounds of the coefficient estimates (*lower_bound*, *upper_bound*) and a dummy which is 1 when the *variable* is either **Intercept** or a soccer **position** (*keep*).
