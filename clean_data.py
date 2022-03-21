@@ -52,8 +52,6 @@ for o in objects:
     #    print(data_agression)
     data = data.merge(data_o, how = "left", on = "match_id")
 
-data.to_csv("try.csv")
-
 for o in objects:
     data.loc[data["home"] == 1, o + "_own"] = data[o + "_home"]
     data.loc[data["home"] == 1, o +"_other"] = data[o + "_away"]
