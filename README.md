@@ -8,9 +8,10 @@ based on player abilities (measured as fifa ratings). So far data collection, me
 ## use
 Typing `make` in the shell should run all codes and create the `temp` (not uploaded to git, in `.gitignore`) and `output` data files 
 1, from `input` files (not uploaded to git, in `.gitignore`) and 2, from files downloaded directly to `temp` with `wget`.
+`Makefile` contains all the dependencies, so how `py` files build up the intermediate and final datasets, `analysis_sample.csv`.
 
 ## outputs
-1. `analysis-sample.csv`: the data on which modeling is done. 
+1. `analysis_sample.csv`: the data on which modeling is done. 
 2. `rmse.csv`: root mean squared errors to select among models.
 3. `regression.csv`: the statistics modeled (*dependent*), the variable on the right side of the equation (*variable*), 
 the point estimate of the coefficient (*coefficient*), the standard error of the coefficent (*se*), the p-value of the coefficient (*pval*), 
