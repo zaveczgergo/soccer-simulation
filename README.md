@@ -15,4 +15,12 @@ Typing `make` in the shell should run all codes and create the `temp` (not uploa
 2. `rmse.csv`: root mean squared errors to select among models.
 3. `regression.csv`: the statistics modeled (*dependent*), the variable on the right side of the equation (*variable*), 
 the point estimate of the coefficient (*coefficient*), the standard error of the coefficent (*se*), the p-value of the coefficient (*pval*), 
-the lower and upper bounds of the coefficient estimates (*lower_bound*, *upper_bound*) and a dummy which is 1 when the *variable* is either **Intercept** or a soccer **position** (*keep*).
+the lower and upper bounds of the coefficient estimates (*lower_bound*, *upper_bound*) and a dummy which is 1 when the *variable* is a, the  **Intercept**; b, a soccer **position** (*keep*); 
+c, a statistically significant FIFA rating (being that individual level, team level for own team or team level for other team).
+Within variables there are five main types: a, **Intercept** is the constant of the equation for each statistic (so for each statistic we have an **Intercept** in the *variable* column); b,
+there are position dummies (**CAM**, **CB**, **CDM**, **CF**, **CM**, **LB**, **LM**, **LW**, **LWB**, **RB**, **RM**, **RW**, **RWB**, **ST**"); 
+c, FIFA ratings - these are the individual level ratings; d, FIFA ratings with the suffix `_own` - these are the team level ratings for the own team in a given match; 
+e, FIFA ratings with the suffix `_other` - these are the team level ratings for the other team playing in a given match.
+It is important to add that when implementing the game, in the equations I would keep for each *dependent* the *variable*-s which have a *keep* value of 1. So the final `regression.csv` should be filtered accordingly.
+All statistics (*dependent*) should be kept obviously.
+**GK** regression table should be produced later in a new file.
