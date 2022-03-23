@@ -23,4 +23,4 @@ c, FIFA ratings - these are the individual level ratings; d, FIFA ratings with t
 e, FIFA ratings with the suffix `_other` - these are the team level ratings for the other team playing in a given match.
 It is important to add that when implementing the game, during the first try, in the equations I would keep all *variable*-s independent of the value of *keep*.
 All statistics (*dependent*) should be kept obviously.
-**GK** regression table should be produced later in a new file.
+4. `regression_GK.csv`: GK statistics modeled following the logic of `regression.csv`
