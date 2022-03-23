@@ -15,9 +15,9 @@ player = pd.read_csv("temp/player-part.csv", index_col = "index")
 events = pd.read_csv("temp/events.csv", index_col = "index")
 
 data = match.merge(match_teams, how = "left", left_on = "wy_id", right_on = "wyId")
-data = data.merge(player_rank, how = "left", left_on = "wy_id", right_on = "match_id")
+data = data.merge(player_rank, how = "left", left_on = ["wy_id", "player_id"], right_on = ["match_id", "player_id"])
 data = data.merge(player, how = "left", left_on = "player_id", right_on = "wy_id")
-data = data.merge(events, how = "left", left_on = ["match_id", "player_id"], right_on = ["matchId", "playerId"])
+data = data.merge(events, how = "left", left_on = ["wy_id_x", "player_id"], right_on = ["matchId", "playerId"])
 
 for df in [match, match_teams, player_rank, player, events, data]:
     print(df.columns)

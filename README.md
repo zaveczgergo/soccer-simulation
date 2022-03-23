@@ -21,6 +21,6 @@ Within variables there are five main types: a, **Intercept** is the constant of 
 there are position dummies (**CAM**, **CB**, **CDM**, **CF**, **CM**, **LB**, **LM**, **LW**, **LWB**, **RB**, **RM**, **RW**, **RWB**, **ST**"); 
 c, FIFA ratings - these are the individual level ratings; d, FIFA ratings with the suffix `_own` - these are the team level ratings for the own team in a given match; 
 e, FIFA ratings with the suffix `_other` - these are the team level ratings for the other team playing in a given match.
-It is important to add that when implementing the game, in the equations I would keep for each *dependent* the *variable*-s which have a *keep* value of 1. So the final `regression.csv` should be filtered accordingly.
+It is important to add that when implementing the game, during the first try, in the equations I would keep all *variable*-s independent of the value of *keep*.
 All statistics (*dependent*) should be kept obviously.
 **GK** regression table should be produced later in a new file.

@@ -25,7 +25,8 @@ def ml_reg(model, var):
     y_pred_test = reg.predict(x_test)
     
     errors["rmse_train"] = np.sqrt(metrics.mean_squared_error(y_train, y_pred_train))
-    errors["rmse_test"] = np.sqrt(metrics.mean_squared_error(y_test, y_pred_test)) 
+    errors["rmse_test"] = np.sqrt(metrics.mean_squared_error(y_test, y_pred_test))
+    # print(metrics.r2_score(y_train, y_pred_train))
     
     se = stats.coef_se(reg, x_train, y_train)
     se_list = [s.real for s in se]
@@ -49,6 +50,14 @@ def ml_reg(model, var):
 
 data = pd.read_csv("output/analysis_sample.csv", index_col = 0, low_memory = False)
 data = data.loc[data["pos"] != "GK",:]
+
+print(data.shape)
+print(data.columns[data.isnull().any()])
+data.dropna(subset = ["goal_scored", "assist", "shot", "shot_target", "pass",
+                      "pass_good", "pass_key", "pass_long", "pass_short", "pass_through",
+                      "pass_cross", "tackle_good", "tackle_bad", "interception", "foul",
+                      "dribble", "control_bad", "corner", "clearance"], inplace = True, axis = 0)
+print(data.shape)
 
 pos_cat = pd.get_dummies(data["pos"])
 independent = pd.concat([data.loc[:,"Acceleration_y":"Volleys"], data.loc[:,"Acceleration_y_own":"Volleys_other"], pos_cat.loc[:,"CAM":"ST"]], axis = 1)
@@ -131,7 +140,7 @@ regression["lower_bound"] = regression["coefficient"] - 1.96 * regression["se"]
 regression["upper_bound"] = regression["coefficient"] + 1.96 * regression["se"]
 regression["keep"] = 0
 
-regression.loc[(regression["pval"] < 0.1) | (regression["variable"].isin(dummy_list)), "keep"] = 1
+regression.loc[(regression["pval"] < 0.05) | (regression["variable"].isin(dummy_list)), "keep"] = 1
 #regression.loc[(regression["pval"] < 0.1) | (regression["variable"] == "Intercept"), "keep"] = 1
 
 regression = regression.loc[regression["model"] == "LinearRegression", :]

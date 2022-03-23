@@ -66,11 +66,11 @@ data.loc[data["home_dummy"] == True, "home"] = 1
 data.loc[data["away_dummy"] == True, "home"] = 0
 print(data["home"].value_counts())
 
-data = data.loc[:,["competition_id","dateutc","label","winner","teamsData_teams_home","teamsData_teams_away","match_id","current_team_id","home",
+data = data.loc[:,["wy_id_x","competition_id","dateutc","label","winner","teamsData_teams_home","teamsData_teams_away","current_team_id","home",
                    "player_id","pos","short_name","Name","birth_date","Age","Nationality","Overall","Potential","Club","Value","Wage",
                    "Acceleration_y","Aggression","Agility","Balance","Ball control","Composure","Crossing","Curve","Dribbling","Finishing","Free kick accuracy","Heading accuracy","Interceptions","Jumping","Long passing","Long shots","Marking","Penalties","Positioning","Reactions","Short passing","Shot power","Sliding tackle","Sprint speed","Stamina","Standing tackle","Strength","Vision","Volleys",
                    "GK diving","GK handling","GK kicking","GK positioning","GK reflexes",
-                   "playerank_score","goal_scored","minutes_played","assist","shot","shot_target","pass","pass_good","pass_key","pass_long","pass_short","pass_through","pass_cross","tackle_good","tackle_bad","interception","foul","dribble","control_bad","corner","clearance"]]
+                   "goal_scored","assist","shot","shot_target","pass","pass_good","pass_key","pass_long","pass_short","pass_through","pass_cross","tackle_good","tackle_bad","interception","foul","dribble","control_bad","corner","clearance"]]
 
 #for var in ["pass_good", "pass_key"]:
 #    ax = sns.distplot(data[var], kde = False)

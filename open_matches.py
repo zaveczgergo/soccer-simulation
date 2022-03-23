@@ -58,6 +58,9 @@ def open_json_matches(file):
     df_match.drop(["player_id_1", "player_id_2", "team_1", "side_1", "team_2", "side_2"], inplace = True, axis = 1)
 
     print(df_match.shape)
+    
+    df_match["player_id"] = df_match["players_home"] + df_match["players_away"]
+    df_match = df_match.explode("player_id")
  
     data_all.append(df_match)
         
